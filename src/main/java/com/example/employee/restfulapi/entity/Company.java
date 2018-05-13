@@ -1,8 +1,6 @@
 package com.example.employee.restfulapi.entity;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -12,6 +10,18 @@ public class Company {
     private Long id;
     private String companyName;
     private Integer employeesNumber;
+
+    @OneToMany(mappedBy = "company", fetch = FetchType.LAZY)
+    //@JsonBackReference
+    private Set<Employee> employees;
+
+    public Set<Employee> getEmployees() {
+        return employees;
+    }
+
+    public void setEmployees(Set<Employee> employees) {
+        this.employees = employees;
+    }
 
     public Company() {
     }
