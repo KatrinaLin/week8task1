@@ -1,6 +1,8 @@
 package com.example.employee.restfulapi.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
@@ -14,6 +16,11 @@ public class Employee {
     private String gender;
     private Integer salary;
     private Long companyId;
+
+    @ManyToOne
+    @JoinColumn(name = "companyId", insertable = false, updatable = false)
+    @JsonBackReference
+    private Company company;
 
     public Employee() {
     }
@@ -58,7 +65,6 @@ public class Employee {
     public Integer getAge() {
         return age;
     }
-
 
     public String getGender() {
         return gender;
