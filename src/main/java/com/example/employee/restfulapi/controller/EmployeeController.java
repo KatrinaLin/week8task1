@@ -61,5 +61,11 @@ public class EmployeeController {
         return employeeRepository.findAll();
     }
 
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public List<Employee> deleteEmployeeWithId(@PathVariable(value = "id") long id) {
+        employeeRepository.delete(id);
+
+        return employeeRepository.findAll();
+    }
 
 }
