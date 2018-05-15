@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.Set;
 
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 @RestController
 @RequestMapping(value = "/companies")
@@ -45,4 +45,23 @@ public class CompanyController {
         return companyRepository.findAll(pageable);
     }
 
+    @RequestMapping(method = POST)
+    public void addCompany() {
+        Company company = new Company();
+        companyRepository.save(company);
+    }
+
+    @RequestMapping(value = "/{id}", method = PUT)
+    public void updateCompanyWithId(@PathVariable(value = "id") long id) {
+        Company company = companyRepository.findOne(id);
+
+        // update the company
+
+        companyRepository.save(company);
+    }
+
+    @RequestMapping(value = "/{id}", method = DELETE)
+    public void deleteCompanyWithId(@PathVariable(value = "id") long id) {
+        companyRepository.delete(id);
+    }
 }
