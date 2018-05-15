@@ -50,4 +50,16 @@ public class EmployeeController {
         return employeeRepository.findAll();
     }
 
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    public List<Employee> updateEmployeeWithId(@PathVariable(value = "id") long id) {
+        Employee employee = employeeRepository.findOne(id);
+
+        // update employee
+
+        employeeRepository.save(employee);
+
+        return employeeRepository.findAll();
+    }
+
+
 }
