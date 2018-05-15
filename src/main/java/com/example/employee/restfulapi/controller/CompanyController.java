@@ -46,22 +46,27 @@ public class CompanyController {
     }
 
     @RequestMapping(method = POST)
-    public void addCompany() {
+    public List<Company> addCompany() {
         Company company = new Company();
         companyRepository.save(company);
+        return companyRepository.findAll();
     }
 
     @RequestMapping(value = "/{id}", method = PUT)
-    public void updateCompanyWithId(@PathVariable(value = "id") long id) {
+    public List<Company> updateCompanyWithId(@PathVariable(value = "id") long id) {
         Company company = companyRepository.findOne(id);
 
         // update the company
 
         companyRepository.save(company);
+
+        return companyRepository.findAll();
     }
 
     @RequestMapping(value = "/{id}", method = DELETE)
-    public void deleteCompanyWithId(@PathVariable(value = "id") long id) {
+    public List<Company> deleteCompanyWithId(@PathVariable(value = "id") long id) {
         companyRepository.delete(id);
+
+        return companyRepository.findAll();
     }
 }
