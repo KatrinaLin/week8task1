@@ -35,7 +35,7 @@ public class CompanyController {
     }
 
     @RequestMapping(value = "/{id}/employees", method = GET)
-    public Set<Employee> getEmployeesForCompanyWithId(@PathVariable(value="id") Long companyId) {
+    public List<Employee> getEmployeesForCompanyWithId(@PathVariable(value="id") Long companyId) {
         return companyRepository.findOne(companyId).getEmployees();
     }
 

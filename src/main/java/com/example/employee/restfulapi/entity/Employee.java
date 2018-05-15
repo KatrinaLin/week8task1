@@ -2,6 +2,7 @@ package com.example.employee.restfulapi.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -33,6 +34,7 @@ public class Employee {
         this.companyId = companyId;
     }
 
+    @JsonIgnore
     public Long getCompanyId() {
         return companyId;
     }

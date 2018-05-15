@@ -1,6 +1,10 @@
 package com.example.employee.restfulapi.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -12,14 +16,13 @@ public class Company {
     private Integer employeesNumber;
 
     @OneToMany(mappedBy = "company", fetch = FetchType.LAZY)
-    //@JsonBackReference
-    private Set<Employee> employees;
+    private List<Employee> employees;
 
-    public Set<Employee> getEmployees() {
+    public List<Employee> getEmployees() {
         return employees;
     }
 
-    public void setEmployees(Set<Employee> employees) {
+    public void setEmployees(List<Employee> employees) {
         this.employees = employees;
     }
 
@@ -31,6 +34,7 @@ public class Company {
         this.employeesNumber = employeesNumber;
     }
 
+    @JsonIgnore
     public Long getId() {
         return id;
     }
