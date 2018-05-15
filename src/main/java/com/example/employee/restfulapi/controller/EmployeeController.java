@@ -41,6 +41,13 @@ public class EmployeeController {
         return employeeRepository.findByGenderEquals("male");
     }
 
+    @RequestMapping(method = RequestMethod.POST)
+    public List<Employee> createEmployee() {
+        Employee employee = new Employee();
 
+        employeeRepository.save(employee);
+
+        return employeeRepository.findAll();
+    }
 
 }

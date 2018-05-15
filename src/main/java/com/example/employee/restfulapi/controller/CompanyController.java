@@ -39,8 +39,8 @@ public class CompanyController {
 
     @RequestMapping(value = "/page/{page}/pageSize/{pageSize}", method = RequestMethod.GET)
     public Page<Company> getCompanyInPages(@PathVariable(value="page") int page, @PathVariable(value="pageSize") int pageSize) {
-        Pageable pageable = new PageRequest(page, pageSize);
-        return companyRepository.findAll(pageable);
+        if (page < 1) return null;
+        return companyRepository.findAll(new PageRequest(page - 1, pageSize));
     }
 
     @RequestMapping(method = RequestMethod.POST)
