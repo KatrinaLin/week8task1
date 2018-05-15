@@ -9,12 +9,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Set;
-
-import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 @RestController
 @RequestMapping(value = "/companies")
@@ -24,35 +22,35 @@ public class CompanyController {
     private CompanyRepository companyRepository;
 
     //在此处完成Company API
-    @RequestMapping(method = GET)
+    @RequestMapping(method = RequestMethod.GET)
     public List<Company> getCompanies() {
         return companyRepository.findAll();
     }
 
-    @RequestMapping(value = "/{id}", method = GET)
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public Company getCompanyWithId(@PathVariable(value="id") Long companyId) {
         return companyRepository.findOne(companyId);
     }
 
-    @RequestMapping(value = "/{id}/employees", method = GET)
+    @RequestMapping(value = "/{id}/employees", method = RequestMethod.GET)
     public List<Employee> getEmployeesForCompanyWithId(@PathVariable(value="id") Long companyId) {
         return companyRepository.findOne(companyId).getEmployees();
     }
 
-    @RequestMapping(value = "/page/{page}/pageSize/{pageSize}", method = GET)
+    @RequestMapping(value = "/page/{page}/pageSize/{pageSize}", method = RequestMethod.GET)
     public Page<Company> getCompanyInPages(@PathVariable(value="page") int page, @PathVariable(value="pageSize") int pageSize) {
         Pageable pageable = new PageRequest(page, pageSize);
         return companyRepository.findAll(pageable);
     }
 
-    @RequestMapping(method = POST)
+    @RequestMapping(method = RequestMethod.POST)
     public List<Company> addCompany() {
         Company company = new Company();
         companyRepository.save(company);
         return companyRepository.findAll();
     }
 
-    @RequestMapping(value = "/{id}", method = PUT)
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public List<Company> updateCompanyWithId(@PathVariable(value = "id") long id) {
         Company company = companyRepository.findOne(id);
 
@@ -63,7 +61,7 @@ public class CompanyController {
         return companyRepository.findAll();
     }
 
-    @RequestMapping(value = "/{id}", method = DELETE)
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public List<Company> deleteCompanyWithId(@PathVariable(value = "id") long id) {
         companyRepository.delete(id);
 
