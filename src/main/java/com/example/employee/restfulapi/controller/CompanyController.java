@@ -55,10 +55,19 @@ public class CompanyController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public List<Company> updateCompanyWithId(@PathVariable(value = "id") long id) {
+    public List<Company> updateCompanyWithId(@PathVariable(value = "id") long id,
+                                             @RequestParam(value = "companyName", required = false)String companyName,
+                                             @RequestParam(value = "employeesNumber", required = false)Integer employeesNumber) {
         Company company = companyRepository.findOne(id);
 
         // update the company
+        if (companyName != null) {
+            company.setCompanyName(companyName);
+        }
+
+        if (employeesNumber != null) {
+            company.setEmployeesNumber(employeesNumber);
+        }
 
         companyRepository.save(company);
 

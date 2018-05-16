@@ -50,10 +50,20 @@ public class EmployeeController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public List<Employee> updateEmployeeWithId(@PathVariable(value = "id") long id) {
+    public List<Employee> updateEmployeeWithId(@PathVariable(value = "id") long id,
+                                               @RequestParam(value = "name", required = false)String name,
+                                               @RequestParam(value = "age", required = false)Integer age,
+                                               @RequestParam(value = "gender", required = false)String gender,
+                                               @RequestParam(value = "salary", required = false)Integer salary,
+                                               @RequestParam(value = "companyId", required = false)Long companyId) {
         Employee employee = employeeRepository.findOne(id);
 
         // update employee
+        if (name != null) employee.setName(name);
+        if (age != null) employee.setAge(age);
+        if (gender != null) employee.setGender(gender);
+        if (salary != null) employee.setSalary(salary);
+        if (companyId != null) employee.setCompanyId(companyId);
 
         employeeRepository.save(employee);
 
