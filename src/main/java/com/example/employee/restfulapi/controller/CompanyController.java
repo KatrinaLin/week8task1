@@ -6,11 +6,7 @@ import com.example.employee.restfulapi.repository.CompanyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -44,9 +40,17 @@ public class CompanyController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public List<Company> addCompany() {
+    public List<Company> addCompany(@RequestParam(value = "companyName")String companyName,
+                                    @RequestParam(value = "employeesNumber", required = false)Integer employeesNumber) {
         Company company = new Company();
+        company.setCompanyName(companyName);
+
+        if (employeesNumber != null) {
+            company.setEmployeesNumber(employeesNumber);
+        }
+
         companyRepository.save(company);
+
         return companyRepository.findAll();
     }
 

@@ -5,10 +5,7 @@ import com.example.employee.restfulapi.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -42,8 +39,10 @@ public class EmployeeController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public List<Employee> createEmployee() {
-        Employee employee = new Employee();
+    public List<Employee> addEmployee(@RequestParam(value = "name")String name, @RequestParam(value = "age")int age,
+                                         @RequestParam(value = "gender")String gender, @RequestParam(value = "salary")int salary,
+                                         @RequestParam(value = "companyId")long companyId) {
+        Employee employee = new Employee(name, age, gender, salary, companyId);
 
         employeeRepository.save(employee);
 
